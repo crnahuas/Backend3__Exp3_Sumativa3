@@ -21,8 +21,6 @@ docker compose ps
 docker images --format '{{.Repository}}:{{.Tag}}' | grep '^banco/'
 ```
 
-Capture `docker compose ps` y la lista de imágenes. Deben existir imágenes para `auth-server`, `config-server`, `discovery-server`, `backend-core`, `bffweb`, `bffmobile`, `bffcajero` y `ms-mensajeria`.
-
 ## 2. Flujo OAuth2
 
 ```bash
@@ -63,8 +61,6 @@ curl -i -X POST http://localhost:8084/api/cajero/cuentas/101/retiro \
   -d '{"monto":1000}'
 ```
 
-La evidencia vigente conserva visibles el JWT y el `client_secret` demostrativos para acreditar la ejecución real. Estas credenciales no deben reutilizarse fuera del ambiente académico.
-
 ## 3. Resilience4j
 
 ```bash
@@ -99,14 +95,3 @@ for module in auth-server backend-core bffweb bffmobile bffcajero ms-mensajeria 
   (cd "$module" && mvn -B test)
 done
 ```
-
-## Evidencias sugeridas
-
-1. Token OAuth2 emitido y credenciales demostrativas usadas durante la prueba.
-2. Respuesta `401` sin token y `403` sin scope.
-3. Retiro `200 OK` con JWT y `X-Correlation-Id`.
-4. Ocho imágenes Docker y `docker compose ps`.
-5. Eureka con los microservicios registrados.
-6. Circuit breaker abierto y recuperación.
-7. Publicación/consumo JMS con la misma correlación.
-8. Mensaje pendiente, recuperación del consumidor y DLQ/reintentos.
