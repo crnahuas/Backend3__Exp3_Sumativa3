@@ -139,7 +139,7 @@ Reemplace los valores de `ORACLE_PASSWORD` y `OAUTH2_CLIENT_SECRET`. `.env` est�
 ./scripts/preparar-wallet.sh
 ```
 
-El script toma el wallet de Semana 2 por defecto o acepta otra ruta como argumento. Lo descomprime en `.local/oracle-wallet`, directorio excluido de la entrega y montado sólo en `backend-core`.
+El script toma el wallet por defecto o acepta otra ruta como argumento. Lo descomprime en `.local/oracle-wallet`, directorio excluido de la entrega y montado sólo en `backend-core`.
 
 ### 3. Construir e iniciar
 
@@ -161,8 +161,6 @@ TOKEN=$(curl -fsS -u "$OAUTH2_CLIENT_ID:$OAUTH2_CLIENT_SECRET" \
   --data 'grant_type=client_credentials&scope=cuentas.read retiros.write' \
   | jq -r '.access_token')
 ```
-
-La captura de esta entrega conserva visibles el JWT y la credencial demostrativa para registrar la ejecución real solicitada. No reutilice esas credenciales en ambientes productivos.
 
 ### 5. Consultar y retirar
 
@@ -200,8 +198,6 @@ EUREKA_SERVER_URL
 CONFIG_SERVER_URL
 ```
 
-El proyecto y el ZIP no incluyen `.env`, wallet Oracle ni credenciales del entorno. Los BFF conservan únicamente keystores PKCS12 autofirmados de demostración para su ejecución HTTPS local; no deben reutilizarse en producción. Como excepción documental, la captura OAuth2 conserva la credencial y el JWT demostrativos visibles durante la ejecución real del ambiente académico.
-
 ## Pruebas y evidencias
 
 La guía reproducible está en [`docs/pruebas-semana8.md`](docs/pruebas-semana8.md). Los resultados vigentes son:
@@ -218,9 +214,7 @@ La guía reproducible está en [`docs/pruebas-semana8.md`](docs/pruebas-semana8.
 | `07_oracle_backend_end_to_end.png` | Ejecución real con Oracle: health, consulta, retiro `200` y publicación JMS |
 | `08_compose_oracle_flujo_completo.png` | Ejecución real de los nueve contenedores: OAuth2, BFF, Oracle, publicación y consumo JMS con la misma correlación |
 
-Las capturas corresponden a ejecuciones reales. La evidencia OAuth2 conserva las credenciales demostrativas y el JWT visibles.
-
-El 2026-10-05 se repitió la validación con Autonomous Database disponible. `backend-core` abrió una conexión JDBC real, reportó `health=UP`, consultó la cuenta `101`, procesó un retiro de `$1.000` con respuesta `200 OK` y publicó `RetiroProcesadoEvent` en `retiros.procesados`. La ejecución directa se conserva en `07_oracle_backend_end_to_end.png`; la prueba integral por `bffcajero`, con los nueve contenedores activos y el mismo `correlationId` en publicación y consumo, se conserva en `08_compose_oracle_flujo_completo.png`.
+Se repitió la validación con Autonomous Database disponible. `backend-core` abrió una conexión JDBC real, reportó `health=UP`, consultó la cuenta `101`, procesó un retiro de `$1.000` con respuesta `200 OK` y publicó `RetiroProcesadoEvent` en `retiros.procesados`. La ejecución directa se conserva en `07_oracle_backend_end_to_end.png`; la prueba integral por `bffcajero`, con los nueve contenedores activos y el mismo `correlationId` en publicación y consumo, se conserva en `08_compose_oracle_flujo_completo.png`.
 
 ## Pruebas automatizadas
 
