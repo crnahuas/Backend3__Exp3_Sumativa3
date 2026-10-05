@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bancoxyz.cl/contracts/retiro-procesado/v1/schema.json",
+  "title": "RetiroProcesadoEvent v1",
+  "description": "Evento emitido por backend-core luego de evaluar un retiro.",
+  "type": "object",
+  "required": [
+    "eventId",
+    "eventType",
+    "eventVersion",
+    "occurredAt",
+    "correlationId",
+    "cuentaId",
+    "montoSolicitado",
+    "saldoDisponible",
+    "saldoRestante",
+    "aprobado",
+    "mensaje"
+  ],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "eventType": {
+      "const": "RetiroProcesado"
+    },
+    "eventVersion": {
+      "type": "string",
+      "pattern": "^1\\.[0-9]+\\.[0-9]+$"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cuentaId": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "montoSolicitado": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 200000,
+      "multipleOf": 1000
+    },
+    "saldoDisponible": {
+      "type": "number",
+      "minimum": 0
+    },
+    "saldoRestante": {
+      "type": "number",
+      "minimum": 0
+    },
+    "aprobado": {
+      "type": "boolean"
+    },
+    "mensaje": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": true
+}

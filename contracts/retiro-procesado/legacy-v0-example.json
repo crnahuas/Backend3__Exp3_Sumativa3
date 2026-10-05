@@ -1,0 +1,8 @@
+{
+  "cuentaId": 101,
+  "montoSolicitado": 1000,
+  "saldoDisponible": 12240,
+  "saldoRestante": 11240,
+  "aprobado": true,
+  "mensaje": "Retiro aprobado"
+}

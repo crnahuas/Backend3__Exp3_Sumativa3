@@ -1,0 +1,13 @@
+{
+  "eventId": "4e9d4e16-708d-4d8a-9a72-27c67c60842a",
+  "eventType": "RetiroProcesado",
+  "eventVersion": "1.0.0",
+  "occurredAt": "2026-10-04T14:30:00Z",
+  "correlationId": "req-cajero-7f4c01",
+  "cuentaId": 101,
+  "montoSolicitado": 1000,
+  "saldoDisponible": 12240,
+  "saldoRestante": 11240,
+  "aprobado": true,
+  "mensaje": "Retiro aprobado"
+}

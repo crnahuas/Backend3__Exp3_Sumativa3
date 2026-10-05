@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="920" viewBox="0 0 1500 920">
+  <defs>
+    <style>
+      .title { font: 700 34px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17233c; }
+      .subtitle { font: 500 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #53627a; }
+      .box-title { font: 700 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17233c; }
+      .box-text { font: 500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #31415d; }
+      .label { font: 600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #31415d; }
+      .small { font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #53627a; }
+      .box { stroke-width: 2; rx: 18; }
+      .flow { stroke: #334766; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .async { stroke: #7b3fb3; stroke-width: 3; fill: none; stroke-dasharray: 10 7; marker-end: url(#arrowPurple); }
+      .config { stroke: #6b778c; stroke-width: 2; fill: none; stroke-dasharray: 6 6; marker-end: url(#arrowGray); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334766"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7b3fb3"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#6b778c"/>
+    </marker>
+  </defs>
+
+  <rect width="1500" height="920" fill="#f7f9fc"/>
+  <text x="750" y="54" text-anchor="middle" class="title">Banco XYZ — Arquitectura Semana 8</text>
+  <text x="750" y="86" text-anchor="middle" class="subtitle">OAuth2/JWT · Resilience4j · JMS/ActiveMQ · Docker Compose · Oracle Cloud</text>
+
+  <rect class="box" x="70" y="310" width="210" height="120" fill="#dce9ff" stroke="#5483c8"/>
+  <text x="175" y="350" text-anchor="middle" class="box-title">Cliente</text>
+  <text x="175" y="382" text-anchor="middle" class="box-text">Postman / canal cajero</text>
+  <text x="175" y="406" text-anchor="middle" class="small">Bearer JWT</text>
+
+  <rect class="box" x="340" y="125" width="270" height="130" fill="#fff1c7" stroke="#d7a92e"/>
+  <text x="475" y="166" text-anchor="middle" class="box-title">Authorization Server</text>
+  <text x="475" y="198" text-anchor="middle" class="box-text">OAuth2 client_credentials</text>
+  <text x="475" y="222" text-anchor="middle" class="small">JWT RS256 · scopes</text>
+
+  <rect class="box" x="340" y="310" width="270" height="150" fill="#dff3e4" stroke="#59a16a"/>
+  <text x="475" y="350" text-anchor="middle" class="box-title">BFF Cajero</text>
+  <text x="475" y="382" text-anchor="middle" class="box-text">Valida JWT y payload</text>
+  <text x="475" y="406" text-anchor="middle" class="box-text">Adapta request/response</text>
+  <text x="475" y="430" text-anchor="middle" class="small">Circuit Breaker + fallback</text>
+
+  <rect class="box" x="720" y="310" width="280" height="150" fill="#dff3e4" stroke="#59a16a"/>
+  <text x="860" y="350" text-anchor="middle" class="box-title">Backend Core</text>
+  <text x="860" y="382" text-anchor="middle" class="box-text">Reglas de retiro y DTOs</text>
+  <text x="860" y="406" text-anchor="middle" class="box-text">Acceso Oracle</text>
+  <text x="860" y="430" text-anchor="middle" class="small">Productor RetiroProcesadoEvent</text>
+
+  <rect class="box" x="1110" y="125" width="270" height="130" fill="#ffe4dc" stroke="#cf6b53"/>
+  <text x="1245" y="166" text-anchor="middle" class="box-title">Oracle Cloud</text>
+  <text x="1245" y="198" text-anchor="middle" class="box-text">Persistencia bancaria</text>
+  <text x="1245" y="222" text-anchor="middle" class="small">Wallet externo y secreto local</text>
+
+  <rect class="box" x="720" y="590" width="280" height="145" fill="#eadff8" stroke="#8653b2"/>
+  <text x="860" y="630" text-anchor="middle" class="box-title">ActiveMQ Classic</text>
+  <text x="860" y="662" text-anchor="middle" class="box-text">Queue: retiros.procesados</text>
+  <text x="860" y="686" text-anchor="middle" class="small">Persistencia · reintentos · DLQ</text>
+  <text x="860" y="710" text-anchor="middle" class="small">JMSCorrelationID</text>
+
+  <rect class="box" x="1110" y="520" width="270" height="115" fill="#eadff8" stroke="#8653b2"/>
+  <text x="1245" y="558" text-anchor="middle" class="box-title">ms-mensajeria 1</text>
+  <text x="1245" y="590" text-anchor="middle" class="box-text">Consumidor JMS</text>
+  <text x="1245" y="614" text-anchor="middle" class="small">Sesión transaccional</text>
+
+  <rect class="box" x="1110" y="670" width="270" height="115" fill="#eadff8" stroke="#8653b2"/>
+  <text x="1245" y="708" text-anchor="middle" class="box-title">ms-mensajeria 2</text>
+  <text x="1245" y="740" text-anchor="middle" class="box-text">Consumidor competidor</text>
+  <text x="1245" y="764" text-anchor="middle" class="small">Escalamiento horizontal</text>
+
+  <rect class="box" x="70" y="650" width="260" height="125" fill="#edf0f4" stroke="#7b8798"/>
+  <text x="200" y="690" text-anchor="middle" class="box-title">Config Server</text>
+  <text x="200" y="720" text-anchor="middle" class="box-text">Propiedades centralizadas</text>
+  <text x="200" y="746" text-anchor="middle" class="small">Sin secretos en el repositorio</text>
+
+  <rect class="box" x="375" y="650" width="250" height="125" fill="#edf0f4" stroke="#7b8798"/>
+  <text x="500" y="690" text-anchor="middle" class="box-title">Eureka</text>
+  <text x="500" y="720" text-anchor="middle" class="box-text">Registro y descubrimiento</text>
+  <text x="500" y="746" text-anchor="middle" class="small">Instancias de servicios</text>
+
+  <path class="flow" d="M280 365 L340 365"/>
+  <text x="310" y="347" text-anchor="middle" class="label">HTTPS</text>
+  <path class="flow" d="M475 310 L475 255"/>
+  <text x="520" y="286" class="label">JWT</text>
+  <path class="flow" d="M610 385 L720 385"/>
+  <text x="665" y="351" text-anchor="middle" class="label">REST + JWT</text>
+  <text x="665" y="374" text-anchor="middle" class="small">Resilience4j</text>
+  <path class="flow" d="M1000 350 C1060 315,1090 260,1130 255"/>
+  <text x="1075" y="298" text-anchor="middle" class="label">JDBC</text>
+  <path class="async" d="M860 460 L860 590"/>
+  <text x="890" y="525" class="label">JMS</text>
+  <text x="890" y="548" class="small">evento v1</text>
+  <path class="async" d="M1000 630 C1050 610,1070 580,1110 580"/>
+  <path class="async" d="M1000 695 C1050 710,1070 725,1110 725"/>
+
+  <path class="config" d="M330 690 C430 570,590 545,760 460"/>
+  <path class="config" d="M500 650 C610 560,660 520,790 460"/>
+  <path class="config" d="M625 700 C780 825,1070 835,1200 785"/>
+
+  <text x="750" y="860" text-anchor="middle" class="subtitle">El evento nace en el microservicio de negocio; el BFF sólo valida y adapta el canal.</text>
+</svg>

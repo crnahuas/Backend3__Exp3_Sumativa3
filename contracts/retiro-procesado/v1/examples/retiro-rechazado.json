@@ -1,0 +1,13 @@
+{
+  "eventId": "2a7e70d7-fe71-4c63-a334-d6bf48e3f141",
+  "eventType": "RetiroProcesado",
+  "eventVersion": "1.0.0",
+  "occurredAt": "2026-10-04T14:31:00Z",
+  "correlationId": "req-cajero-a9c501",
+  "cuentaId": 101,
+  "montoSolicitado": 20000,
+  "saldoDisponible": 12240,
+  "saldoRestante": 12240,
+  "aprobado": false,
+  "mensaje": "Saldo insuficiente"
+}
