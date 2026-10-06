@@ -10,6 +10,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
 
+import cl.duoc.bffweb.exception.CoreClientException;
 import cl.duoc.bffweb.exception.CoreServiceException;
 import cl.duoc.bffweb.models.CuentaCompletaResponse;
 
@@ -67,6 +68,13 @@ public class CuentaCoreClient {
                     requestId,
                     cuentaId,
                     ex.getStatusCode().value());
+            if (ex.getStatusCode().is4xxClientError()) {
+                throw new CoreClientException(
+                        "El servicio central rechazo la consulta",
+                        ex.getStatusCode().value(),
+                        requestId,
+                        ex);
+            }
             throw new CoreServiceException(
                     "El servicio central no pudo responder la consulta",
                     ex.getStatusCode().value(),
@@ -86,6 +94,9 @@ public class CuentaCoreClient {
     }
 
     private CuentaCompletaResponse fallback(String requestId, Throwable throwable) {
+        if (throwable instanceof CoreClientException coreClientException) {
+            throw coreClientException;
+        }
         logger.warn("event=core_circuit_breaker_fallback canal=web requestId={}", requestId);
         if (throwable instanceof CoreServiceException coreServiceException) {
             throw coreServiceException;

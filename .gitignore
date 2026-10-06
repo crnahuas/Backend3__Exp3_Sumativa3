@@ -1,0 +1,15 @@
+# Archivos locales y secretos
+.env
+.env.*
+!.env.example
+.local/
+
+# Artefactos de compilacion
+**/target/
+
+# Archivos del sistema y editores
+.DS_Store
+.idea/
+.vscode/
+*.iml
+

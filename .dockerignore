@@ -1,0 +1,19 @@
+# Metadatos y artefactos locales
+.git/
+.gitignore
+.DS_Store
+**/target/
+
+# Secretos y material de conexion local
+.env
+.env.*
+!.env.example
+.local/
+
+# Archivos que no intervienen en la construccion de los servicios
+Evidencias/
+contracts/
+docs/
+scripts/
+README.md
+

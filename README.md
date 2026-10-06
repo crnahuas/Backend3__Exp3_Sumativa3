@@ -83,6 +83,7 @@ wait-duration-in-open-state=10s
 ```
 
 Cuando el core está inaccesible, las primeras fallas se registran y el circuito termina abierto. El cliente recibe un `503` controlado y no una excepción interna.
+Las respuestas `4xx` del core se propagan al canal, pero se excluyen del conteo porque representan errores de solicitud o reglas de negocio, no indisponibilidad del servicio.
 
 ## Evento y mensajería JMS
 

@@ -10,6 +10,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
 
+import cl.duoc.bffcajero.exception.CoreClientException;
 import cl.duoc.bffcajero.exception.CoreServiceException;
 import cl.duoc.bffcajero.client.dto.RetiroCoreRequest;
 import cl.duoc.bffcajero.client.dto.RetiroCoreResponse;
@@ -83,6 +84,13 @@ public class CuentaCoreClient {
                     requestId,
                     cuentaId,
                     ex.getStatusCode().value());
+            if (ex.getStatusCode().is4xxClientError()) {
+                throw new CoreClientException(
+                        "El servicio central rechazo el retiro",
+                        ex.getStatusCode().value(),
+                        requestId,
+                        ex);
+            }
             throw new CoreServiceException(
                     "El servicio central no pudo procesar el retiro",
                     ex.getStatusCode().value(),
@@ -102,6 +110,9 @@ public class CuentaCoreClient {
     }
 
     private RetiroCoreResponse fallbackRetiro(String requestId, Throwable throwable) {
+        if (throwable instanceof CoreClientException coreClientException) {
+            throw coreClientException;
+        }
         logger.warn(
                 "event=core_circuit_breaker_fallback canal=cajero operacion=retiro correlationId={}",
                 requestId);
@@ -143,6 +154,13 @@ public class CuentaCoreClient {
                     requestId,
                     cuentaId,
                     ex.getStatusCode().value());
+            if (ex.getStatusCode().is4xxClientError()) {
+                throw new CoreClientException(
+                        "El servicio central rechazo la consulta",
+                        ex.getStatusCode().value(),
+                        requestId,
+                        ex);
+            }
             throw new CoreServiceException(
                     "El servicio central no pudo responder la consulta",
                     ex.getStatusCode().value(),
@@ -162,6 +180,9 @@ public class CuentaCoreClient {
     }
 
     private CuentaCompletaResponse fallback(String requestId, Throwable throwable) {
+        if (throwable instanceof CoreClientException coreClientException) {
+            throw coreClientException;
+        }
         logger.warn("event=core_circuit_breaker_fallback canal=cajero requestId={}", requestId);
         if (throwable instanceof CoreServiceException coreServiceException) {
             throw coreServiceException;
